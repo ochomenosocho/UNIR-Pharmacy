@@ -9,13 +9,13 @@ public class MainView {
 	private JFrame window;
 	private JTextField name =  new JTextField(50);
 	private String[] medicinesListed = {
-										"Analgecico",
-										"Aneleptico",
-										"Anestetico",
-										"Antiacido",
-										"Antidepresivo",
-										"Antibioticos"
-									 };
+					"Analgecico",
+					"Aneleptico",
+					"Anestetico",
+					"Antiacido",
+					"Antidepresivo",
+					"Antibioticos"
+				 };
 	private JComboBox<Object> type = new JComboBox<Object>(medicinesListed);
 	private JTextField amount = new JTextField(10);
 	private ButtonGroup distributors = new ButtonGroup();
