@@ -1,47 +1,98 @@
 package com.pharmacy;
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
+
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class MainView {
 	private JFrame window;
 	
-	public void loadView() {
-		this.setElementsIntoWindow();
-		return;
-	}
-	
-	private void setElementsIntoWindow() {
-		JTextField medicineNameInput = this.getMedicineNameInput();
-		JLabel medicineNameLabel = this.getMadicineNameLabel();
-		JLabel medicineTypesLabel = this.getMedicineTypesLabel();
-		JComboBox<Object> medicineTypesInput = this.getMedicineTypeList();
-		JLabel amountOfMedicineLabel = this.getAmountOfMedicineLabel();
-		JTextField amountOfMedicineInput = this.getAmountOfMedicineInput();
+	public MainView() {
 		this.window = this.generateWindow();
-		this.window.add(medicineNameLabel);
-		this.window.add(medicineNameInput);
-		this.window.add(medicineTypesLabel);
-		this.window.add(medicineTypesInput);
-		this.window.add(amountOfMedicineLabel);
-		this.window.add(amountOfMedicineInput);
-		//aqui falta agregar los radio button xd
-		return;
+		this.setElementsIntoWindow();
+		this.window.setVisible(true);
 	}
 	
-	private JLabel getMadicineNameLabel() {
-		return new JLabel("Nombre del medicamento:");
+	public void setElementsIntoWindow() {
+		this.addMadicineNameInput();
+		this.addMedicineTypeList();
+		this.addAmountInput();
+		this.addBranchOfficeCheckBox();
+		this.setDistributorSelector();
+		this.addCancelButton();
+		this.addConfirmButton();
 	}
 	
-	private JTextField getMedicineNameInput() {
-		return new JTextField(50);
+	private void addConfirmButton() {
+		JButton confirmButton = new JButton("Confirmar");
+		confirmButton.setBounds(300,250,100,30);
+	    this.window.add(confirmButton);
+	    confirmButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getAllDataFromFrame();
+			}
+	    });
 	}
 	
-	private JLabel getMedicineTypesLabel() {
-		return new JLabel("Tipo del medicamento:");
+	private void addCancelButton() {
+		JButton cancelButton = new JButton("Cancelar");
+		cancelButton.setBounds(300,250,100,30);
+	    this.window.add(cancelButton);
+	    cancelButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				deleteDataFromFrame();
+			}
+	    });
 	}
 	
-	private JComboBox<Object> getMedicineTypeList() {
+	private void getAllDataFromFrame() {
+		System.out.println("XD");
+	}
+	
+	private void deleteDataFromFrame() {
+		System.out.println("No XD");
+	}
+	
+	private void addMadicineNameInput() {
+		JLabel nameLabel = new JLabel("Nombre del medicamento:");
+		JTextField medicineNameField =  new JTextField(50);
+		this.window.add(nameLabel);
+		this.window.add(medicineNameField);
+	}
+	
+	private void setDistributorSelector() {
+		JLabel nameLabel = new JLabel("Distribuidor:");
+		JRadioButton cofarma = new JRadioButton("Cofarma");
+		JRadioButton empsephar = new JRadioButton("Empsephar");
+		JRadioButton cemefar = new JRadioButton("Cemefar");
+		ButtonGroup distributors = new ButtonGroup();
+		distributors.add(cofarma);
+		distributors.add(empsephar);
+		distributors.add(cemefar);
+		this.window.add(nameLabel);
+		this.window.add(cofarma);
+		this.window.add(empsephar);
+		this.window.add(cemefar);
+	}
+	
+	private void addBranchOfficeCheckBox() {
+		JLabel nameLabel = new JLabel("Sucursal:");
+		JCheckBox mainBranchOffice = new JCheckBox("Sucursal principal");
+		mainBranchOffice.setBounds(10,10,150,30);
+		JCheckBox secondaryBranchOffice = new JCheckBox("Sucursal secundaria");
+		secondaryBranchOffice.setBounds(10,10,150,30);
+		this.window.add(nameLabel);
+        this.window.add(mainBranchOffice);
+        this.window.add(secondaryBranchOffice);
+	}
+	
+	private void addMedicineTypeList() {
+		JLabel nameLabel = new JLabel("Tipo del medicamento:");
 		String[] medicinesListed = {"Analgecico",
 									"Aneleptico",
 									"Anestetico",
@@ -49,15 +100,16 @@ public class MainView {
 									"Antidepresivo",
 									"Antibioticos"
 								 };
-		return new JComboBox<Object>(medicinesListed);
+		JComboBox<Object> medicines = new JComboBox<Object>(medicinesListed);
+		this.window.add(nameLabel);
+		this.window.add(medicines);
 	}
 	
-	private JLabel getAmountOfMedicineLabel() {
-		return new JLabel("Cantidad de producto requerida:");
-	}
-	
-	private JTextField getAmountOfMedicineInput() {
-		return new JTextField(10);
+	private void addAmountInput() {
+		JLabel nameLabel = new JLabel("Cantidad de producto requerida:");
+		JTextField amountInput = new JTextField(10);
+		this.window.add(nameLabel);
+		this.window.add(amountInput);
 	}
 	
 	private JFrame generateWindow() {
