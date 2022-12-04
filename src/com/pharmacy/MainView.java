@@ -28,8 +28,8 @@ public class MainView {
 	private JButton confirmButton = new JButton("Confirmar");
 	private JButton cancelButton = new JButton("Cancelar");
 	
-	public MainView() {
-		this.window = this.generateWindow();
+	public void loadView() {
+		this.window = this.generateMainWindow();
 		this.setElementsIntoWindow();
 		this.window.setVisible(true);
 	}
@@ -63,11 +63,37 @@ public class MainView {
 	}
 	
 	private void checkIfDataIsCorrect() {
-		if (this.isAlphaNumeric(this.name.getText()));
-		else if (Integer.parseInt(this.amount.getText()) > 0);
-		else if (this.cofarma.isSelected() || this.empsephar.isSelected() || this.cemefar.isSelected());
-		else if (this.mainBranchOffice.isSelected() || this.secondaryBranchOffice.isSelected());
-		else { this.clearDataFromFrame(); }
+		if (!this.isAlphaNumeric(this.name.getText())) this.addErrorToMainView();
+		else if (!isNumeric(this.amount.getText())) this.addErrorToMainView();
+		else if (!(Integer.parseInt(this.amount.getText()) > 0)) this.addErrorToMainView();
+		else if (!(this.cofarma.isSelected()
+				|| this.empsephar.isSelected()
+				|| this.cemefar.isSelected())) this.addErrorToMainView();
+		else if (!(this.mainBranchOffice.isSelected()
+				|| this.secondaryBranchOffice.isSelected())) this.addErrorToMainView();
+		else {
+			Summary summary = new Summary();
+			summary.loadSummaryView(this.distributors.getSelection().toString(), this.amount.getText(),
+									this.type.getSelectedItem().toString(), this.name.getText(),
+									this.offices.getSelection().toString()
+									);
+		}
+	}
+	
+	private boolean isNumeric(String number) {
+		if (number == null) return false;
+	    try {
+	        @SuppressWarnings("unused")
+			double d = Double.parseDouble(number);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;
+	}
+	
+	private void addErrorToMainView() {
+		this.displayErrorMessage();
+		this.clearDataFromFrame();
 	}
 	
 	private void clearDataFromFrame() {
@@ -76,6 +102,11 @@ public class MainView {
 		this.type.setSelectedIndex(0);
 		this.distributors.clearSelection();
 		this.offices.clearSelection();
+	}
+	
+	private void displayErrorMessage(){
+		Error error = new Error();
+		error.loadErrorView();
 	}
 	
 	private boolean isAlphaNumeric(String word) {
@@ -122,7 +153,7 @@ public class MainView {
 		this.window.add(this.amount);
 	}
 	
-	private JFrame generateWindow() {
+	private JFrame generateMainWindow() {
 		JFrame window = new JFrame("Amazing Pharmacy!");
 		window.setLayout(new FlowLayout());
 		window.setSize(850, 800);
