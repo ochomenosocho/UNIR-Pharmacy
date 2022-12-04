@@ -1,7 +1,5 @@
 package com.pharmacy;
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
-
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -86,6 +84,9 @@ public class MainView {
 		mainBranchOffice.setBounds(10,10,150,30);
 		JCheckBox secondaryBranchOffice = new JCheckBox("Sucursal secundaria");
 		secondaryBranchOffice.setBounds(10,10,150,30);
+		ButtonGroup offices = new ButtonGroup();
+		offices.add(mainBranchOffice);
+		offices.add(secondaryBranchOffice);
 		this.window.add(nameLabel);
         this.window.add(mainBranchOffice);
         this.window.add(secondaryBranchOffice);
